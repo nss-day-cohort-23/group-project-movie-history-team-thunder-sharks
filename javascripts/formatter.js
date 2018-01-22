@@ -3,17 +3,21 @@ let $ = require("jquery");
 let controller = require("./controller");
 
 // format movie data
-module.exports.formatMovie = (data) => {
-   
-    data.results.forEach(element => {
-      let title =  element.title;
-      console.log('title',title );
-      let posterPath = element.poster_path;
-      console.log('poster path',posterPath );
-      let movieId = element.id;
-      console.log('id',movieId );
-     
-       
-    }); 
+module.exports.formatMovies = (data) => {
+    let mdbMovies = [];
+    let mbd = data.results;
+
+    mbd.forEach(movie =>{
+        mdbMovies.push(
+            {
+                id: movie.id,
+                title: movie.title,
+                poster:movie.poster_path,
+                date: movie.release_date
+            }
         
+        );
+    });
+    return mdbMovies;
+    
 };

@@ -6,6 +6,6 @@ let controller = require("./controller");
 $('.search').on('keypress', function(event){
     if (event.keyCode === 13) {
         let input = $('.search').val();
-        controller.MovieData(input);
+        controller.getMovieData(input);
     }
 });
