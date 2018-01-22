@@ -28,3 +28,10 @@ $('#btnLogin').click(()=>{
     });
 });
 
+$("#btnLogout").click( () => {
+    auth.logout()
+    .then( () => {
+      console.log('logged out!', firebase.auth().currentUser);
+  
+    });
+  });
