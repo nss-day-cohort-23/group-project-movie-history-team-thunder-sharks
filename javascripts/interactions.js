@@ -1,6 +1,8 @@
 "use strict";
 let $ = require("jquery");
 let controller = require("./controller");
+let firebase = require('firebase');
+let auth = require('./userFactory.js');
 
 // get value from users search 
 $('.search').on('keypress', function(event){
@@ -10,43 +12,19 @@ $('.search').on('keypress', function(event){
     }
 });
 
-
-// Get elements
-const txtEmail = document.getElementById('txtEmail');
-const txtPassword = document.getElementById('txtPassword');
-const btnLogin = document.getElementById('btnLogin');
-const btnSignup = document.getElementById('btnSignup');
-const btnLogout = document.getElementById('btnLogout');
-
-// Add login event
-
-btnLogin.addEventListener('click', e => {
-    console.log('you clicked');
-    
-    // get email and password 
-    const email = txtEmail.value;
-    const pass = txtPassword.value;
-    const auth = firebase.auth();
-    // sign in
-    const promise = auth.signInWithEmailAndPassword(email, pass);
-    promise.catch(e => console.log(e.message));
+$('#btnLogin').click(()=>{
+    auth
+    .authUser()
+    .then(function(result) {
+      // The signed-in user info.
+      let user = result.user;
+      console.log('user', user);
+      
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
 });
-
-    // sign up
-btnSignup.addEventListener('click', e => {
-    // get email and password 
-    const email = txtEmail.value;
-    const pass = txtPassword.value;
-    const auth = firebase.auth();
-    // sign in
-    const promise = auth.createUserWithEmailAndPassword(email, pass);
-    promise
-    .then(user => console.log(user))
-    .catch(e => console.log(e.message));
-});
-
-// add a real time listener
-
-
-
 
