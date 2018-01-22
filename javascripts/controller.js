@@ -7,8 +7,13 @@ let output = require("./output");
 let interactions = require("./interactions");
 
 // get value from users search and pass to ajax call
-module.exports.MovieData = (input) =>{
-    movieFactory.getMovieName(input);
-};
+module.exports.getMovieData = (input) =>{
+    movieFactory.getMovieName(input)
+    .then((data) =>{
+        let formattedMovies = formatter.formatMovies(data);
+        output.outputMovies(formattedMovies); 
+    });
+    
+ };
 
-movieFactory.getMoviePoster();
+
