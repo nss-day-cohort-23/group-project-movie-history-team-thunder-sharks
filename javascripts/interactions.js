@@ -2,6 +2,7 @@
 let $ = require("jquery");
 let controller = require("./controller");
 
+
 // get value from users search 
 $('.search').on('keypress', function(){
     if (event.keyCode === 13) {
@@ -9,3 +10,5 @@ $('.search').on('keypress', function(){
         controller.MovieData(input);
     }
 });
+
+
