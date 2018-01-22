@@ -8,7 +8,13 @@ let interactions = require("./interactions");
 
 // get value from users search and pass to ajax call
 module.exports.MovieData = (input) =>{
-    movieFactory.getMovieName(input);
-};
+    movieFactory.getMovieName(input)
+    .then((data) =>{
+      return formatter.formatMovie(data); 
+    })
+        .then((movieId, posterPath, title) =>{
+            output.outputMovies();
+        });
+ };
 
-movieFactory.getMoviePoster();
+
