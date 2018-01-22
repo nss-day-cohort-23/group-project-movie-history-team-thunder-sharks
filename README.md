@@ -25,3 +25,7 @@ You will be split up into teams, and your team will build a new application to k
 ## Mockup
 
 Review the [basic design](https://app.moqups.com/chortlehoort/uGBbLbK46Y/view/page/a3a0e7bf6) and ask questions to your product owner for clarification, or ideas on features.
+
+**Update**
+
+[here](https://app.moqups.com/chortlehoort/uGBbLbK46Y/view/page/a2e9677b2) is a new mockup of the design from the clients.
