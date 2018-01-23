@@ -5,8 +5,7 @@ let movieCard = require("../templates/movieCard.hbs");
 
 module.exports.outputMovies = (formattedMovies) =>{
     console.log('mbdMovies', formattedMovies);
-    for (let i = 0; i < formattedMovies.length; i++) {
-        
+    for (let i = 0; i < formattedMovies.length; i++) {        
         $('.movieContainer').append(
         movieCard(formattedMovies[i]));
         
