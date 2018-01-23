@@ -5,9 +5,18 @@ let movieCard = require("../templates/movieCard.hbs");
 
 module.exports.outputMovies = (mdbMovies) =>{
     console.log('mbdMovies', mdbMovies);
-    for (let i = 0; i < mdbMovies.length; i++) {        
-        $('.movieContainer').append(
-            movieCard(mdbMovies[i]));
+
+    let moviesObj = {mdbMovies};
+    $('.movieContainer').empty();
+    $('.movieContainer').append(movieCard(moviesObj));
         
-    }
-};
+        // `<div class="movieCard"> 
+        // <h2>${formattedMovies[i].title}</h2>
+        // <h7></h7>
+        // <br> 
+        // <img src="https://image.tmdb.org/t/p/w500${formattedMovies[i].poster}" class="moviePoster" alt="No Movie Poster Available" width='260px' height='370px'>
+        // <br>
+        // <h2>${formattedMovies[i].title}</h2>
+        // </div>`
+};               
+
