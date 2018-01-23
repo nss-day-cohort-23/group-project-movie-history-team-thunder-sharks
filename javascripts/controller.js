@@ -43,9 +43,9 @@ module.exports.activateListeners = () => {
 
 // get value from users search 
 const activateSearch = () => {
-    $('.search').on('keypress', function (event) {
+    $('#search').on('keypress', function (event) {
         if (event.keyCode === 13) {
-            let input = $('.search').val();
+            let input = $('#search').val();
             module.exports.getMovieData(input);
         }
     });
@@ -80,12 +80,9 @@ const activateLogoutButton = () => {
 // Event Listner for user adding to watch list
 const addToWishlist = () => {
     $(document).on("click", ".addWatchList", function () {
-        $(this).siblings('.deleteBtn').removeAttr('hidden');
-        $(this).attr("hidden", "true");
-        let movieId = $(this).siblings().val('movieID'),
-            movieTitle = $(this).siblings(".title").text();
-
-        movieId = parseInt(movieId[1].innerText);
+        let movieId = $(this).parent().siblings("#movieID").text();
+        let movieTitle = $(this).parent().siblings("h3").text();
+        movieId = parseInt(movieId);
         let currentUser = firebase.auth().currentUser;
         let userMovie = {
             movieId: movieId,
