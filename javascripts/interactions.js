@@ -37,13 +37,15 @@ $("#btnLogout").click( () => {
 
   // Event Listner for user adding to watch lis
 $(document).on("click", ".addWatchList", function(){
-  let movieId = $(this).siblings().val('movieID');
+  let movieId = $(this).siblings().val('movieID'),
+  movieTitle = $(this).siblings(".title").text(); 
    movieId = parseInt(movieId[1].innerText);
    let currentUser = firebase.auth().currentUser;
    let userMovie = {
      movieId: movieId,
      uid: currentUser.uid,
-     rating: 0
+     rating: 0,
+     title: movieTitle
    };
    console.log("added!", userMovie);
    fbFactory.addMovie(userMovie);

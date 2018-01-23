@@ -16,3 +16,7 @@ module.exports.addMovie = (movie) => {
     });
 };
 
+module.exports.getMovies = () => {
+
+};
+
