@@ -8,9 +8,13 @@ let output = require("./view");
 let firebase = require('firebase');
 let auth = require('./userFactory.js');
 
+fbFactory.listenToUserId();
+
 // get value from users search and pass to ajax call
 
 module.exports.getMovieData = (input) =>{
+    fbFactory.getMovies(input).then(movies => {console.log("searched", movies);});
+
     tmdb.getMovies(input)
     .then((data) =>{
         let formattedMovies = formatter.formatMovies(data);
@@ -74,13 +78,16 @@ const activateLogoutButton = () => {
 // Event Listner for user adding to watch list
 const addToWishlist = () => {
     $(document).on("click", ".addWatchList", function(){
-        let movieId = $(this).siblings().val('movieID');
+        let movieId = $(this).siblings().val('movieID'),
+        movieTitle = $(this).siblings(".title").text(); 
+
         movieId = parseInt(movieId[1].innerText);
         let currentUser = firebase.auth().currentUser;
         let userMovie = {
-        movieId: movieId,
-        uid: currentUser.uid,
-        rating: 0
+            movieId: movieId,
+            uid: currentUser.uid,
+            rating: 0,
+            title: movieTitle
         };
         console.log("added!", userMovie);
         fbFactory.addMovie(userMovie);
