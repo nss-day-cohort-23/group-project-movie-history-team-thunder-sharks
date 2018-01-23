@@ -1,19 +1,20 @@
 "use strict";
-let $ = require("jquery");
-let controller = require("./controller");
-let fbUser = require('./apiKey');
-let fbUrl = "https://thunder-sharks-movies.firebaseio.com/";
-let fbConfig = require("./config/fb-config");
+
+const $ = require("jquery");
+const _ = require("lodash");
+const controller = require("./controller");
+const fbUser = require('./apiKey');
+const fbConfig = require("./config/fb-config");
+
+const fbUrl = "https://thunder-sharks-movies.firebaseio.com";
 let userId = "";
 
 module.exports.listenToUserId = () => {
-    fbConfig.auth().onAuthStateChanged(function(user) {
+    fbConfig.auth().onAuthStateChanged(function (user) {
         if (user) {
-          userId = user.uid;
-        } else {
-
+            userId = user.uid;
         }
-      });
+    });
 };
 
 // Adds movie to firebase
@@ -23,30 +24,36 @@ module.exports.addMovie = (movie) => {
             url: `${fbUrl}/movies.json`,
             method: "POST",
             data: JSON.stringify(movie)
-        }).done( () => {
+        }).done(() => {
             resolve();
         });
     });
 };
 
-// Gets movies from firebase
-module.exports.getMovies = (term) => {
+
+// promises a list of all movies with a matching uid
+const getMovies = uid => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `${fbUrl}/movies.json`,
-        }).done( movies => {
+            url: `${fbUrl}/movies.json?orderBy="uid"&equalTo="${uid}"`,
+        }).done(movies => {
+            resolve(movies);
+        });
+    });
+};
 
+// searches movies in firebase by title
+module.exports.searchMovies = term => {
+    return new Promise((resolve, reject) => {
+        getMovies(userId).then(movies => {
             // Make object of objects an array
-            let moviesArray = Object.keys(movies).map(movie => {
-                movies[movie].id = movie;
-                return movies[movie];
-            });
-            
+            movies = _.values(movies);
+
             // Filter objects on search term
-            let filteredMovies = moviesArray.filter(movie => {
+            let filteredMovies = movies.filter(movie => {
                 return movie.title.toLowerCase().indexOf(term.toLowerCase()) !== -1 && movie.uid === userId;
             });
-            
+
             resolve(filteredMovies);
         });
     });
