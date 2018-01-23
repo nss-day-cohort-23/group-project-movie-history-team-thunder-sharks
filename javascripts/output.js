@@ -5,6 +5,7 @@ let movieCard = require("../templates/movieCard.hbs");
 
 module.exports.outputMovies = (mdbMovies) =>{
     console.log('mbdMovies', mdbMovies);
+
     let moviesObj = {mdbMovies};
     $('.movieContainer').empty();
     $('.movieContainer').append(movieCard(moviesObj));
@@ -18,3 +19,4 @@ module.exports.outputMovies = (mdbMovies) =>{
         // <h2>${formattedMovies[i].title}</h2>
         // </div>`
 };               
+
