@@ -18,5 +18,5 @@ module.exports.outputMovies = (formattedMovies) =>{
         // <br>
         // <h2>${formattedMovies[i].title}</h2>
         // </div>`
-    }
-};    
+    } 
+};               
