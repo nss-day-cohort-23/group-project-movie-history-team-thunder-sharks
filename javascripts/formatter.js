@@ -26,9 +26,7 @@ module.exports.formatMovies = (data) => {
                     url: `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${apiKey}`
                 })
                 .done(data => {
-                    // console.log("data", data.cast.slice(0,3));
                     data.cast.slice(0,3).forEach(castMember => {
-                        // console.log(mdbMovies[index]);
                         mdbMovies[index].castList.push(castMember.name);
                     });
                     resolve();
@@ -39,11 +37,8 @@ module.exports.formatMovies = (data) => {
             });
             promArr.push(p);
         });
-        console.log("promArr", promArr);
         Promise.all(promArr)
         .then( () => {
-            console.log('something');
-            console.log("mdbMovies", mdbMovies);
             resolve(mdbMovies);
         })
         .catch(error => {
