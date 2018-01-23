@@ -14,7 +14,6 @@ module.exports.getMovieData = (input) =>{
         return formatter.formatMovies(data);
     })
     .then(mdbMovies => {
-        console.log("formatted movies", mdbMovies);
         output.outputMovies(mdbMovies); 
     });  
  };

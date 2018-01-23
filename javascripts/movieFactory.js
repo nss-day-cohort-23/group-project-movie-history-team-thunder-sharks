@@ -10,7 +10,6 @@ module.exports.getMovies = (input) =>{
         url:`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${input}`
     }).done((data) =>{
         resolve(data);
-        console.log('user search',data );
     }).fail((error) =>{
         reject(error); 
         });
