@@ -3,12 +3,11 @@ let $ = require("jquery");
 let controller = require("./controller");
 let movieCard = require("../templates/movieCard.hbs");
 
-module.exports.outputMovies = (formattedMovies) =>{
-    console.log('mbdMovies', formattedMovies);
-    for (let i = 0; i < formattedMovies.length; i++) {        
+module.exports.outputMovies = (mdbMovies) =>{
+    console.log('mbdMovies', mdbMovies);
+    for (let i = 0; i < mdbMovies.length; i++) {        
         $('.movieContainer').append(
-        movieCard(formattedMovies[i]));
+            movieCard(mdbMovies[i]));
         
-       
     }
 };
