@@ -5,4 +5,6 @@ let firebase = require("firebase");
 
 // Initialize Firebase
 
+controller.activateListeners();
+
 
