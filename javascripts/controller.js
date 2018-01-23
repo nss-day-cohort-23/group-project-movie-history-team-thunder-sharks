@@ -3,13 +3,13 @@
 let $ = require("jquery");
 let formatter = require("./formatter");
 let fbFactory = require("./fbFactory");
-let movieFactory = require("./movieFactory");
+let tmdb = require("./tmdb");
 let output = require("./output");
 let interactions = require("./interactions");
 
 // get value from users search and pass to ajax call
 module.exports.getMovieData = (input) =>{
-    movieFactory.getMovies(input)
+    tmdb.getMovies(input)
     .then((data) =>{
         return formatter.formatMovies(data);
     })
