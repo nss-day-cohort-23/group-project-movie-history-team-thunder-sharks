@@ -35,3 +35,11 @@ $("#btnLogout").click( () => {
   
     });
   });
+
+  // Event Listner for user adding to watch lis
+$(document).on("click", ".addWatchList", function(){
+  console.log('added');
+  let addedWatchList = $(this).siblings().val('movieID');
+   addedWatchList = parseInt(addedWatchList[1].innerText);
+
+});

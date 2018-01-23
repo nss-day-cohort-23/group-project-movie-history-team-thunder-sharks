@@ -3,11 +3,12 @@ let $ = require("jquery");
 let controller = require("./controller");
 let movieCard = require("../templates/movieCard.hbs");
 
-module.exports.outputMovies = (formattedMovies) =>{
-    console.log('mbdMovies', formattedMovies);
-    for (let i = 0; i < formattedMovies.length; i++) {        
-        $('.movieContainer').append(
-        movieCard(formattedMovies[i]));
+module.exports.outputMovies = (mdbMovies) =>{
+    console.log('mbdMovies', mdbMovies);
+
+    let moviesObj = {mdbMovies};
+    $('.movieContainer').empty();
+    $('.movieContainer').append(movieCard(moviesObj));
         
         // `<div class="movieCard"> 
         // <h2>${formattedMovies[i].title}</h2>
@@ -17,5 +18,5 @@ module.exports.outputMovies = (formattedMovies) =>{
         // <br>
         // <h2>${formattedMovies[i].title}</h2>
         // </div>`
-    } 
 };               
+
