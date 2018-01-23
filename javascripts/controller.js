@@ -81,8 +81,7 @@ const activateLogoutButton = () => {
 const addToWishlist = () => {
     $(document).on("click", ".addWatchList", function () {
         let movieId = $(this).parent().siblings("#movieID").text();
-        let movieTitle = $(this).parent().siblings(".title").text();
-
+        let movieTitle = $(this).parent().siblings("h3").text();
         movieId = parseInt(movieId);
         let currentUser = firebase.auth().currentUser;
         let userMovie = {
