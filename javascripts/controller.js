@@ -13,11 +13,17 @@ let auth = require('./userFactory.js');
 module.exports.getMovieData = (input) =>{
     tmdb.getMovies(input)
     .then((data) =>{
-        return formatter.formatMovies(data);
-    })
-    .then(mdbMovies => {
-        output.outputMovies(mdbMovies); 
-    });  
+        let formattedMovies = formatter.formatMovies(data);
+        let castPromises = formattedMovies.map(movie => {
+            return tmdb.getCastList(movie.id);
+        });
+        Promise.all(castPromises).then(casts => {
+            formattedMovies.map((movie, index) => {
+                movie.castList = casts[index];
+            }); 
+            output.outputMovies(formattedMovies); 
+        });
+    });
  };
 
 // event listeners
