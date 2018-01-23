@@ -30,7 +30,7 @@ module.exports.getCastList = movieId => {
     return new Promise((resolve, reject) => {
         getCast(movieId).then(cast => {
             let names = cast.map(castMember => castMember.name);
-            return names.slice(0,3).join(", ");
+            resolve(names.slice(0,3).join(", "));
         });
     });
 };
