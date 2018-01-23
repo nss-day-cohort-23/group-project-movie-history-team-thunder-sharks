@@ -2,5 +2,5 @@ node_modules
 dist/
 .sass-cache/
 .DS_Store
-javascripts/apiKey.javascripts
+javascripts/apiKey.js
 css/
