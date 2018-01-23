@@ -12,23 +12,25 @@ fbFactory.listenToUserId();
 
 // get value from users search and pass to ajax call
 
-module.exports.getMovieData = (input) =>{
-    fbFactory.getMovies(input).then(movies => {console.log("searched", movies);});
+module.exports.getMovieData = (input) => {
+    fbFactory.searchMovies(input).then(movies => {
+        console.log("searched", movies);
+    });
 
     tmdb.getMovies(input)
-    .then((data) =>{
-        let formattedMovies = formatter.formatMovies(data);
-        let castPromises = formattedMovies.map(movie => {
-            return tmdb.getCastList(movie.id);
+        .then((data) => {
+            let formattedMovies = formatter.formatMovies(data);
+            let castPromises = formattedMovies.map(movie => {
+                return tmdb.getCastList(movie.id);
+            });
+            Promise.all(castPromises).then(casts => {
+                formattedMovies.map((movie, index) => {
+                    movie.castList = casts[index];
+                });
+                output.outputMovies(formattedMovies);
+            });
         });
-        Promise.all(castPromises).then(casts => {
-            formattedMovies.map((movie, index) => {
-                movie.castList = casts[index];
-            }); 
-            output.outputMovies(formattedMovies); 
-        });
-    });
- };
+};
 
 // event listeners
 
@@ -41,7 +43,7 @@ module.exports.activateListeners = () => {
 
 // get value from users search 
 const activateSearch = () => {
-    $('.search').on('keypress', function(event){
+    $('.search').on('keypress', function (event) {
         if (event.keyCode === 13) {
             let input = $('.search').val();
             module.exports.getMovieData(input);
@@ -50,36 +52,36 @@ const activateSearch = () => {
 };
 
 const activateLoginButton = () => {
-    $('#btnLogin').click(()=>{
+    $('#btnLogin').click(() => {
         auth
-        .authUser()
-        .then(function(result) {
-            // The signed-in user info.
-            let user = result.user;
-        })
-        .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-        });
+            .authUser()
+            .then(function (result) {
+                // The signed-in user info.
+                let user = result.user;
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
     });
 };
 
 const activateLogoutButton = () => {
-    $("#btnLogout").click( () => {
+    $("#btnLogout").click(() => {
         auth.logout()
-        .then( () => {
-        console.log('logged out!', firebase.auth().currentUser);
+            .then(() => {
+                console.log('logged out!', firebase.auth().currentUser);
 
-        });
+            });
     });
 };
 
 // Event Listner for user adding to watch list
 const addToWishlist = () => {
-    $(document).on("click", ".addWatchList", function(){
+    $(document).on("click", ".addWatchList", function () {
         let movieId = $(this).siblings().val('movieID'),
-        movieTitle = $(this).siblings(".title").text(); 
+            movieTitle = $(this).siblings(".title").text();
 
         movieId = parseInt(movieId[1].innerText);
         let currentUser = firebase.auth().currentUser;
