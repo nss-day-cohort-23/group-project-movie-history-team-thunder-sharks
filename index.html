@@ -10,29 +10,37 @@
 </head>
 <body>
     <!-- Nav Bar -->
-    <nav class="navbar justify-content-between">
-        <a class="navbar-brand"></a>
-        <input class="form-control mr-sm-2 search" type="search" placeholder="Search" aria-label="Search">
+
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <div class="container">
+            <a href="/" class="navbar-brand">Thunder Sharks</a>
+            <div class="form-inline">
+                <input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            </div>
+            <button id="btnLogin" class="ml-2 btn btn-action">
+                Login
+            </button>
+            <button id="btnLogout" class="ml-2 btn btn-action d-none">
+                Log Out
+            </button>
+        </div>
     </nav>
     <!-- End Nav Bar -->
 
-    <div class="movieCards">
-  
-    <!-- Sign In -->
-
-    <div class="container">
-        <button id="btnLogin" class="btn btn-action">Login</button>
-        <!-- <button id="btnSignup" class="btn btn-secondary">Sign Up</button> -->
-        <button id="btnLogout" class="btn btn-action hide">Log Out</button>
-    </div>
-
-    <!-- End of Sign In -->
-
-    <!-- Movie Output -->
-
-    <div class="movieContainer">
-    </div>
-    <!-- End Movie Output -->
+    <div class="container my-4">
+    
+        <!-- Sign In -->
+    
+        <div class="movieCards">
+        </div>
+    
+        <!-- End of Sign In -->
+    
+        <!-- Movie Output -->
+    
+        <div class="movieContainer">
+        </div>
+        <!-- End Movie Output -->
 
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script src="dist/app.js"></script>
