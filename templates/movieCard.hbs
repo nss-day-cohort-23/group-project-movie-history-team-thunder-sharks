@@ -1,6 +1,8 @@
 <div class="displayMovies">
-    <h4>Title: {{title}}</h4>
+    <h3 class="title">{{title}}</h3>
     <image src="https://image.tmdb.org/t/p/w185{{poster}}" class="moviePoster" alt="No Movie Poster Available">
-    <h3>Cast:{{cast}}</h3>
-    <h5>Release Date: {{date}}</h5>
+    <p class="cast">{{castList}}<p>
+    <p class="releaseDate">Release Date: {{date}}</p>
+    <button class="deleteBtn" hidden>Delete</button>
+    <button class="addWatchList">Add</button>
 </div>
