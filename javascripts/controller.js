@@ -5,7 +5,6 @@ let formatter = require("./formatter");
 let fbFactory = require("./fbFactory");
 let tmdb = require("./tmdb");
 let output = require("./output");
-let interactions = require("./interactions");
 let firebase = require('firebase');
 let auth = require('./userFactory.js');
 
@@ -35,7 +34,7 @@ const activateSearch = () => {
     $('.search').on('keypress', function(event){
         if (event.keyCode === 13) {
             let input = $('.search').val();
-            getMovieData(input);
+            module.exports.getMovieData(input);
         }
     });
 };
