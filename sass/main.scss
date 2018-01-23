@@ -38,17 +38,17 @@
 }
 // delete button style
 .deleteBtn{
-    grid-column: 4;
-    grid-row: 4;
-    width: 80px;
+    grid-column: -2 / -3;
+    grid-row: 5;
+    width: 60px;
+    height: 40px;
     border-radius: 5px;
-    margin: 0px 3px 3px 0px;
+    // margin: 0px 3px 3px 0px;
 }
 // add to watchlist button
 .addWatchList {
-    grid-column: 4;
-    grid-row: 4;
-    font-size: 5px;
+    grid-column: 2 / 4;
+    grid-row: 5 / 6;
 }
 
 
