@@ -9,5 +9,7 @@ module.exports.outputMovies = (mdbMovies) =>{
     $('.movieContainer').append(movieCard(moviesObj));
 };      
 
-// module.exports.showBtn = ()
-
+module.exports.toggleBtns = function(btn){
+    btn.siblings('.deleteBtn').removeAttr('hidden');
+    btn.attr("hidden", "true");
+};
