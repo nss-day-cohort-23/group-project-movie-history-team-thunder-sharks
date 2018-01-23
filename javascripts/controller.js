@@ -80,6 +80,8 @@ const activateLogoutButton = () => {
 // Event Listner for user adding to watch list
 const addToWishlist = () => {
     $(document).on("click", ".addWatchList", function () {
+        $(this).siblings('.deleteBtn').removeAttr('hidden');
+        $(this).attr("hidden", "true");
         let movieId = $(this).siblings().val('movieID'),
             movieTitle = $(this).siblings(".title").text();
 
