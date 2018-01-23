@@ -32,7 +32,8 @@ module.exports = function(grunt) {
           tasks: ['jshint', 'browserify']
         },
         hbs: {
-          files: ['./templates/**/*.hbs']
+          files: ['./templates/**/*.hbs'],
+          tasks: ['browserify']
         },
         sass: {
           files: ["./sass/**/*.scss"],
@@ -41,5 +42,5 @@ module.exports = function(grunt) {
       }
     });
     require('matchdep').filter('grunt-*').forEach(grunt.loadNpmTasks);
-    grunt.registerTask('default', ['jshint', 'browserify', 'watch']);
+    grunt.registerTask('default', ['jshint', 'sass', 'browserify', 'watch']);
 };   
