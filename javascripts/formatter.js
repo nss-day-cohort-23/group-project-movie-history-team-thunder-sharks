@@ -40,7 +40,6 @@ module.exports.formatMovies = (data, limit) => {
                 movieStars.splice(5, 0, {blank: true});
                 movieObj.rating = movieStars;
             }
-            console.log('movie', movieObj);
         formattedMovies.push(movieObj);
     });
     return formattedMovies;

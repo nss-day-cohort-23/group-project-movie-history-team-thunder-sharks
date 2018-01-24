@@ -110,7 +110,6 @@ const addToWishlist = () => {
             rating: 0,
             title: movieTitle
         };
-        console.log("added!", userMovie);
         fbFactory.addMovie(userMovie);
     });
 };
@@ -134,7 +133,6 @@ const activateTab = () => {
         $(".tabs").removeClass("active");
         $(e.currentTarget).addClass("active");
         let id = $(e.target).attr("id");
-        console.log(id);
         if (id == "all") {
             $(".card.movie").show();
         } else {
