@@ -114,4 +114,11 @@ const removeFromWishList = () => {
     });
 };
 
+const activateTab = () => {
+    $(".tabs").click(function(e) {
+        $(".tabs").removeClass("active");
+        e.currentTarget.addClass("active");
+    });
+};
+
 
