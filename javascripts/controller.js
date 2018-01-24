@@ -61,6 +61,7 @@ module.exports.activateListeners = () => {
 const activateSearch = () => {
     $('#search').on('keypress', function (event) {
         if (event.keyCode === 13) {
+            activateSearchTab();
             let input = $('#search').val();
             module.exports.getMovieData(input);
         }
@@ -146,4 +147,9 @@ const activateTab = () => {
             }
         }
     });
+};
+
+const activateSearchTab = () =>{
+    $(".tabs").removeClass('active');
+    $('#all').addClass('active');
 };
