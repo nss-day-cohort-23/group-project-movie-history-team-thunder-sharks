@@ -110,7 +110,6 @@ const addToWishlist = () => {
             rating: 0,
             title: movieTitle
         };
-        console.log("added!", userMovie);
         fbFactory.addMovie(userMovie);
     });
 };
@@ -133,7 +132,18 @@ const activateTab = () => {
     $(".tabs").click(function(e) {
         $(".tabs").removeClass("active");
         $(e.currentTarget).addClass("active");
+        let id = $(e.target).attr("id");
+        if (id == "all") {
+            $(".card.movie").show();
+        } else {
+            $(".card.movie").hide();
+            if (id == "watched") {
+                $(".card.movie.watched").show();
+            } else if (id == "wishlist") {
+                $(".card.movie.wishlist").show();
+            } else if (id == "favorite") {
+                $(".card.movie.favorite").show();
+            }
+        }
     });
 };
-
-
