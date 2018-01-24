@@ -17,7 +17,7 @@ module.exports.listenToUserId = () => {
     });
 };
 
-// Adds movie to firebase
+// promises to add movie to firebase
 module.exports.addMovie = (movie) => {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -30,6 +30,7 @@ module.exports.addMovie = (movie) => {
     });
 };
 
+// promises to delete movie with given key
 module.exports.deleteMovie = (key)=>{
     return new Promise((resolve, reject)=>{
         $.ajax({
@@ -54,6 +55,7 @@ const getMovies = uid => {
     });
 };
 
+// promises key of firebase movie with given uid and movieId
 module.exports.getKeyByUidAndId = (uid,movieId) =>{
     return new Promise((resolve, reject)=>{
         getMovies(uid)
@@ -79,23 +81,18 @@ module.exports.searchMovies = term => {
     });
 };
 
-
-// number is an int between 1 and 10
-// module.exports.rateMove = (uid, id, number) => {
-//     return new Promise((resolve, reject) => {
-//         $.ajax({
-//             type: "PATCH",
-//             url: `${fbURL}/movies/`
-//         })
-//             .done(results => resolve(results))
-//             .fail(error => reject(error));
-//     });
-// };
-
-module.exports.getKeyFromIds = (uid, id) => {
+// changes the rating of the movie with the given uid and id
+    // assumption: number is an int between 1 and 10
+module.exports.rateMovie = (uid, id, number) => {
     return new Promise((resolve, reject) => {
-        getMovies.then(movies => {
-            resolve(_.filter(movies, movie => movie.id == id));
+        module.exports.getKeyByUidAndId(uid, id).then(key => {
+            $.ajax({
+                type: "PATCH",
+                url: `${fbUrl}/movies/${key}.json`,
+                data: JSON.stringify({"rating": number})
+            })
+                .done(results => resolve(results))
+                .fail(error => reject(error));
         });
     });
 };
