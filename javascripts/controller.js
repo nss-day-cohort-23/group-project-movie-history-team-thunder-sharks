@@ -74,8 +74,7 @@ const activateLogoutButton = () => {
     $("#btnLogout").click(() => {
         auth.logout()
             .then(() => {
-                console.log('logged out!', firebase.auth().currentUser);
-
+                location.reload();
             });
     });
 };
