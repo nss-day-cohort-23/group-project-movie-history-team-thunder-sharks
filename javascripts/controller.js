@@ -13,13 +13,24 @@ fbFactory.listenToUserId();
 // get value from users search and pass to ajax call
 
 module.exports.getMovieData = (input) => {
-    fbFactory.searchMovies(input).then(movies => {
-        console.log("searched", movies);
-    });
+
+
+   
+
+
 
     tmdb.getMovies(input)
-        .then((data) => {
+    .then((data) => {
+
+        fbFactory.searchMovies(input).then(fbMovies => {    
+            
             let formattedMovies = formatter.formatMovies(data);
+
+            // Combine TMDB movies and Firebase movies.
+            formattedMovies = fbMovies.concat(formattedMovies);
+            
+            console.log('formattedMovies', formattedMovies);
+
             let castPromises = formattedMovies.map(movie => {
                 return tmdb.getCastList(movie.id);
             });
@@ -30,6 +41,7 @@ module.exports.getMovieData = (input) => {
                 output.outputMovies(formattedMovies);
             });
         });
+    });
 };
 
 // event listeners
@@ -85,7 +97,7 @@ const addToWishlist = () => {
         movieId = parseInt(movieId);
         let currentUser = firebase.auth().currentUser;
         let userMovie = {
-            movieId: movieId,
+            id: movieId,
             uid: currentUser.uid,
             rating: 0,
             title: movieTitle

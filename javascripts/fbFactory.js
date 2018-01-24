@@ -46,6 +46,7 @@ const getMovies = uid => {
 module.exports.searchMovies = term => {
     return new Promise((resolve, reject) => {
         getMovies(userId).then(movies => {
+            
             // Make object of objects an array
             movies = _.values(movies);
 
