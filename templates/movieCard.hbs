@@ -20,15 +20,15 @@
                 {{/if}}
             </div>
         {{#if rating}}
-        <div class="stars">
+        <div class="stars" data-movieId="{{id}}">
             {{#each rating}}
                 {{#if blank}}
                     <br/>
-                {{else}}
+                {{else}}    
                     {{#if star}}
-                        <i class="material-icons">star</i>
+                        <i data-starId="{{number}}" class="material-icons">star</i>
                     {{else}}
-                        <i class="material-icons">star_border</i>                    
+                        <i data-starId="{{number}}"  class="material-icons">star_border</i>                    
                     {{/if}}
                 {{/if}}
             {{/each}}

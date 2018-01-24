@@ -32,9 +32,9 @@ module.exports.formatMovies = (data, limit) => {
                 let movieStars = [];
                 for (let i = 0; i < 10; i++) {
                     if (i < movie.rating) {
-                        movieStars.push({ star: true });
+                        movieStars.push({ star: true, number: i});
                     } else {
-                        movieStars.push({ star: false });
+                        movieStars.push({ star: false, number: i });
                     }
                 }
                 movieStars.splice(5, 0, {blank: true});
