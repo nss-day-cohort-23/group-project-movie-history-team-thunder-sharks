@@ -22,25 +22,21 @@ module.exports.getMovieData = (input) => {
     tmdb.getMovies(input)
     .then((tmdbMovies) => {
 
-        fbFactory.searchMovies(input).then(fbMovies => {    
+        fbFactory.searchMovies(input).then(fbMovies => {  
             
-            // Get movie information from tmdb on each movie from firebase
+            // Get tmdb infomration on each movie from firebase
             let fbPromises = fbMovies.map(movie => {
                 return tmdb.getMovie(movie.id);
             });
 
             Promise.all(fbPromises).then(fbMoviesWithPoster  => {
-
-                
                 // Format TMDB and Firebase movies as similar data
                 fbMoviesWithPoster = formatter.formatMovies(fbMoviesWithPoster, 6);
                 let formattedMovies = formatter.formatMovies(tmdbMovies.results, 6);
                 
                 // Combine TMDB movies and Firebase movies.
                 formattedMovies = fbMoviesWithPoster.concat(formattedMovies);
-                
-                console.log('fbMoviesWithPoster', fbMoviesWithPoster);
-                
+
                 let castPromises = formattedMovies.map(movie => {
                     return tmdb.getCastList(movie.id);
                 });
