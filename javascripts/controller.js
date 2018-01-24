@@ -69,7 +69,7 @@ const activateSearch = () => {
 
 const activateLoginButton = () => {
     $('#btnLogin').click(function(){
-        output.toggleLogBtns($(this),'#btnLogout');
+        output.toggleBtns($(this),'#btnLogout');
 
         auth
             .authUser()

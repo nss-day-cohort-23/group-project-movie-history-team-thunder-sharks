@@ -11,8 +11,13 @@
             <h4 class="card-subtitle text-muted">{{date}}</h4>
             <p class="cast">{{castList}}</p>
             <div class="ops">
-                <button class="deleteBtn" hidden>Delete</button>
+                {{#if deleteBtn}}
+                <button class="deleteBtn">Delete</button>
+                <button class="addWatchList btn d-none">Add</button>
+                {{else}}
+                <button class="deleteBtn d-none">Delete</button>
                 <button class="addWatchList btn">Add</button>
+                {{/if}}
             </div>
         {{#if rating}}
         <div class="stars">
