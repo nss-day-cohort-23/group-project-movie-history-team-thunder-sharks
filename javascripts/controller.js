@@ -39,6 +39,7 @@ module.exports.activateListeners = () => {
     activateLoginButton();
     activateLogoutButton();
     addToWishlist();
+    removeFromWishList();
 };
 
 // get value from users search 
@@ -52,7 +53,9 @@ const activateSearch = () => {
 };
 
 const activateLoginButton = () => {
-    $('#btnLogin').click(() => {
+    $('#btnLogin').click(function(){
+        output.toggleLogBtns($(this),'#btnLogout');
+
         auth
             .authUser()
             .then(function (result) {
@@ -81,7 +84,7 @@ const activateLogoutButton = () => {
 const addToWishlist = () => {
     $(document).on("click", ".addWatchList", function () {
         //reveal delete, hide add
-        output.toggleBtns($(this));
+        output.toggleBtns($(this),'.deleteBtn');
 
         let movieId = $(this).parent().siblings("#movieID").text();
         let movieTitle = $(this).parent().siblings("h3").text();
@@ -95,6 +98,20 @@ const addToWishlist = () => {
         };
         console.log("added!", userMovie);
         fbFactory.addMovie(userMovie);
+    });
+};
+
+//listener for removing from watchlist
+const removeFromWishList = () => {
+    $(document).on('click', '.deleteBtn', function(){
+        output.toggleBtns($(this),'.addWatchList');
+
+        let movieID = parseInt($(this).parent().siblings('#movieID').text());
+        let uid = firebase.auth().currentUser.uid;
+        fbFactory.getKeyByUidAndId(uid,movieID)
+        .then(key=>{
+            fbFactory.deleteMovie(key);
+        });
     });
 };
 
