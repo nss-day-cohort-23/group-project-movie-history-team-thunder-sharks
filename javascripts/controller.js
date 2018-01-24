@@ -38,8 +38,6 @@ module.exports.getMovieData = (input) => {
                 // Combine TMDB movies and Firebase movies.
                 formattedMovies = fbMoviesWithPoster.concat(formattedMovies);
 
-                console.log('formattedMovies', formattedMovies);
-                
                 // Remove movie duplicate movies, favoring movies from Firebase
                 formattedMovies = _.uniqBy(formattedMovies, 'id');
 
