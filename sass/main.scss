@@ -19,19 +19,25 @@ body {
         flex-direction: column;
         justify-content: space-between;
         h3, h4 {
-            margin: .5em 0;
+            margin-bottom: .5em;
         }
         h3 {
-            margin-top: 0;
             font-size: 1.5rem;
         }
         h4 {
+            margin-top: .1rem;
             font-size: 1.2rem;
         }
         .cast {
             flex-grow: 5;
         }
     }
+}
+
+.stars {
+    i {
+        display: inline;
+    }     
 }
 
 

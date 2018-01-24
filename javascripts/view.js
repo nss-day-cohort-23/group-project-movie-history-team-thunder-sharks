@@ -14,7 +14,8 @@ module.exports.outputMovies = (mdbMovies) =>{
     });
     let moviesObj = {mdbMovies};
     $('.movieContainer').empty();
-    $('.movieContainer').append(movieCard(moviesObj));
+    $('.movieContainer').append(movieCard({mdbMovies}));
+    console.log(mdbMovies);
 };      
 
 module.exports.toggleBtns = function(btn1,btn2){

@@ -1,7 +1,9 @@
 {{#each mdbMovies}}
     <div class="card movie">
         {{#if poster}}
-            <image src="https://image.tmdb.org/t/p/w185{{poster}}" class="moviePoster card-img-top" alt="{{title}}">
+            <image src="https://image.tmdb.org/t/p/w500{{poster}}" class="moviePoster card-img-top" alt="{{title}}">
+        {{else}}
+            <image src="/img/no-image.png" class="moviePoster card-img-top" alt="No image available"></image>
         {{/if}}
         <div class="card-body">
             <p id="movieID"hidden>{{id}}</p>
@@ -17,6 +19,21 @@
                 <button class="addWatchList btn">Add</button>
                 {{/if}}
             </div>
+        {{#if rating}}
+        <div class="stars">
+            {{#each rating}}
+                {{#if blank}}
+                    <br/>
+                {{else}}
+                    {{#if star}}
+                        <i class="material-icons">star</i>
+                    {{else}}
+                        <i class="material-icons">star_border</i>                    
+                    {{/if}}
+                {{/if}}
+            {{/each}}
+        </div>
+        {{/if}}
         </div>
     </div>
 {{/each}}
