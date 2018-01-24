@@ -31,15 +31,16 @@ module.exports.getMovieData = (input) => {
 
             Promise.all(fbPromises).then(fbMoviesWithPoster  => {
 
-                console.log('fbMoviesWithPoster', fbMoviesWithPoster);
-
+                
                 // Format TMDB and Firebase movies as similar data
-                fbMoviesWithPoster = formatter.formatMovies(fbMoviesWithPoster);
-                let formattedMovies = formatter.formatMovies(tmdbMovies.results);
+                fbMoviesWithPoster = formatter.formatMovies(fbMoviesWithPoster, 6);
+                let formattedMovies = formatter.formatMovies(tmdbMovies.results, 6);
                 
                 // Combine TMDB movies and Firebase movies.
                 formattedMovies = fbMoviesWithPoster.concat(formattedMovies);
-
+                
+                console.log('fbMoviesWithPoster', fbMoviesWithPoster);
+                
                 let castPromises = formattedMovies.map(movie => {
                     return tmdb.getCastList(movie.id);
                 });
@@ -64,6 +65,7 @@ module.exports.activateListeners = () => {
     activateLoginButton();
     activateLogoutButton();
     addToWishlist();
+    removeFromWishList();
 };
 
 // get value from users search 
@@ -77,7 +79,9 @@ const activateSearch = () => {
 };
 
 const activateLoginButton = () => {
-    $('#btnLogin').click(() => {
+    $('#btnLogin').click(function(){
+        output.toggleLogBtns($(this),'#btnLogout');
+
         auth
             .authUser()
             .then(function (result) {
@@ -96,8 +100,7 @@ const activateLogoutButton = () => {
     $("#btnLogout").click(() => {
         auth.logout()
             .then(() => {
-                console.log('logged out!', firebase.auth().currentUser);
-
+                location.reload();
             });
     });
 };
@@ -105,6 +108,9 @@ const activateLogoutButton = () => {
 // Event Listner for user adding to watch list
 const addToWishlist = () => {
     $(document).on("click", ".addWatchList", function () {
+        //reveal delete, hide add
+        output.toggleBtns($(this),'.deleteBtn');
+
         let movieId = $(this).parent().siblings("#movieID").text();
         let movieTitle = $(this).parent().siblings("h3").text();
         movieId = parseInt(movieId);
@@ -117,6 +123,20 @@ const addToWishlist = () => {
         };
         console.log("added!", userMovie);
         fbFactory.addMovie(userMovie);
+    });
+};
+
+//listener for removing from watchlist
+const removeFromWishList = () => {
+    $(document).on('click', '.deleteBtn', function(){
+        output.toggleBtns($(this),'.addWatchList');
+
+        let movieID = parseInt($(this).parent().siblings('#movieID').text());
+        let uid = firebase.auth().currentUser.uid;
+        fbFactory.getKeyByUidAndId(uid,movieID)
+        .then(key=>{
+            fbFactory.deleteMovie(key);
+        });
     });
 };
 

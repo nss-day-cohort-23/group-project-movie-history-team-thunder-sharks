@@ -4,10 +4,11 @@ let controller = require("./controller");
 let apiKey = require("./apiKey");
 
 // format movie data
-module.exports.formatMovies = (data) => {
+module.exports.formatMovies = (data, limit) => {
 
     let formattedMovies = [];
-    let movies = data;
+
+    let movies = data.slice(0, limit);
 
     movies.forEach((movie, index) => {
         formattedMovies.push(

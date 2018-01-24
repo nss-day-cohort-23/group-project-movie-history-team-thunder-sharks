@@ -30,6 +30,18 @@ module.exports.addMovie = (movie) => {
     });
 };
 
+module.exports.deleteMovie = (key)=>{
+    return new Promise((resolve, reject)=>{
+        $.ajax({
+            url: `${fbUrl}/movies/${key}.json`,
+            method: 'DELETE'
+        })
+        .done(data=>{
+            resolve(data);
+        })
+        .catch(error => reject(error));
+    });
+};
 
 // promises a list of all movies with a matching uid
 const getMovies = uid => {
@@ -38,6 +50,15 @@ const getMovies = uid => {
             url: `${fbUrl}/movies.json?orderBy="uid"&equalTo="${uid}"`,
         }).done(movies => {
             resolve(movies);
+        });
+    });
+};
+
+module.exports.getKeyByUidAndId = (uid,movieId) =>{
+    return new Promise((resolve, reject)=>{
+        getMovies(uid)
+        .then((list)=>{
+            resolve(_.findKey(list,['movieId',movieId]));
         });
     });
 };
@@ -54,7 +75,6 @@ module.exports.searchMovies = term => {
             let filteredMovies = movies.filter(movie => {
                 return movie.title.toLowerCase().indexOf(term.toLowerCase()) !== -1 && movie.uid === userId;
             });
-
             resolve(filteredMovies);
         });
     });
