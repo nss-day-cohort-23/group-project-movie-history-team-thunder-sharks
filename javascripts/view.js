@@ -3,10 +3,10 @@ let $ = require("jquery");
 let controller = require("./controller");
 let movieCard = require("../templates/movieCard.hbs");
 
-module.exports.outputMovies = (mdbMovies) =>{
-    let moviesObj = {mdbMovies};
+module.exports.outputMovies = (mdbMovies) => {
     $('.movieContainer').empty();
-    $('.movieContainer').append(movieCard(moviesObj));
+    $('.movieContainer').append(movieCard({mdbMovies}));
+    console.log(mdbMovies);
 };      
 
 module.exports.toggleBtns = function(btn1,btn2){

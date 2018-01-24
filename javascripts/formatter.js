@@ -16,12 +16,32 @@ module.exports.formatMovies = (data, limit) => {
                 id: movie.id,
                 title: movie.title,
                 poster: movie.poster_path,
-                date: movie.release_date,
-                castList: ""
+                date: movie.release_date.substring(0, 4),
+                castList: "",
+            };
+            
+            if (typeof movie.rating !== "undefined") {
+                if (movie.rating >= 8) {
+                    movieObj.class = "favorite";
+                } else if (movie.rating === 0) {
+                    movieObj.class = "wishlist";
+                } else {
+                    movieObj.class = "watched";
+                }            
+                let movieStars = [];
+                for (let i = 0; i < 10; i++) {
+                    if (i < movie.rating) {
+                        movieStars.push({ star: true });
+                    } else {
+                        movieStars.push({});
+                    }
+                }
+                movieObj.rating = movieStars;
+    
+            } else {
+                movie.class = "tmdb";
             }
-        if (typeof movie.rating !== "undefined") {
-            movieObj.rating = movie.rating;  
-        }
+            console.log('movie', movieObj);
         formattedMovies.push(movieObj);
     });
     return formattedMovies;

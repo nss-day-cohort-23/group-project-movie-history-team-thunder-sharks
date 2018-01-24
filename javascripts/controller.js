@@ -22,11 +22,14 @@ module.exports.getMovieData = (input) => {
                 return tmdb.getMovie(movie);
             });
             Promise.all(fbPromises).then(fbMoviesWithPoster  => {
+
                 // Format TMDB and Firebase movies as similar data
                 fbMoviesWithPoster = formatter.formatMovies(fbMoviesWithPoster, 6);
                 let formattedMovies = formatter.formatMovies(tmdbMovies.results, 6);
+
                 // Combine TMDB movies and Firebase movies.
                 formattedMovies = fbMoviesWithPoster.concat(formattedMovies);
+                
                 // Remove movie duplicate movies, favoring movies from Firebase
                 formattedMovies = _.uniqBy(formattedMovies, 'id');
                 let castPromises = formattedMovies.map(movie => {
