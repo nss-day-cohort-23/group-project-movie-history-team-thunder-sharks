@@ -16,7 +16,7 @@ module.exports.formatMovies = (data, limit) => {
                 id: movie.id,
                 title: movie.title,
                 poster: movie.poster_path,
-                date: movie.release_date,
+                date: movie.release_date.slice(0,4),
                 castList: "",
                 rating: movie.rating
             }
