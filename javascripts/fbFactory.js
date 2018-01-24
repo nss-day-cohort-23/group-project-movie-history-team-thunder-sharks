@@ -86,7 +86,7 @@ module.exports.searchMovies = term => {
     // assumption: number is an int between 1 and 10
 module.exports.rateMovie = (uid, id, number) => {
     return new Promise((resolve, reject) => {
-        module.exports.getKeyByUidAndId(uid, id).then(key => {
+        module.exports.getKeyByUidAndId(userId, id).then(key => {
             $.ajax({
                 type: "PATCH",
                 url: `${fbUrl}/movies/${key}.json`,
