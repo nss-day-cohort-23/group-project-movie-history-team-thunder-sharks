@@ -14,6 +14,21 @@
                 <button class="deleteBtn" hidden>Delete</button>
                 <button class="addWatchList btn">Add</button>
             </div>
+        {{#if rating}}
+        <div class="stars">
+            {{#each rating}}
+                {{#if blank}}
+                    <br/>
+                {{else}}
+                    {{#if star}}
+                        <i class="material-icons">star</i>
+                    {{else}}
+                        <i class="material-icons">star_border</i>                    
+                    {{/if}}
+                {{/if}}
+            {{/each}}
+        </div>
+        {{/if}}
         </div>
     </div>
 {{/each}}
