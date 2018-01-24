@@ -60,7 +60,7 @@ module.exports.getKeyByUidAndId = (uid,movieId) =>{
     return new Promise((resolve, reject)=>{
         getMovies(uid)
         .then((list)=>{
-            resolve(_.findKey(list,['movieId',movieId]));
+            resolve(_.findKey(list,['id',movieId]));
         });
     });
 };
