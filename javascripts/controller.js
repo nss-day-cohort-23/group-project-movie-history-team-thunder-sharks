@@ -40,6 +40,7 @@ module.exports.activateListeners = () => {
     activateLogoutButton();
     addToWishlist();
     removeFromWishList();
+    activateTab();
 };
 
 // get value from users search 
@@ -117,7 +118,7 @@ const removeFromWishList = () => {
 const activateTab = () => {
     $(".tabs").click(function(e) {
         $(".tabs").removeClass("active");
-        e.currentTarget.addClass("active");
+        $(e.currentTarget).addClass("active");
     });
 };
 
