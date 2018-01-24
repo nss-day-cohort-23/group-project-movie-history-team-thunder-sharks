@@ -55,6 +55,30 @@ module.exports.activateListeners = () => {
     addToWishlist();
     removeFromWishList();
     activateTab();
+
+    $(".movieContainer").on("click", ".material-icons", function(){
+        let stars = $(this).data("starid");
+        let id = $(this).parent(".stars").data("movieid");
+
+        let html = `<div class="stars" data-movieId="${id}">`;
+
+        let blankStars = 10-stars;
+        for(let i = 0; i < 10; i++){
+            if(i < stars){
+                html += `<i data-starId="${i+1}" class="material-icons">star</i>`;
+            } else {
+                html += `<i data-starId="${i+1}" class="material-icons">star_border</i>`;
+            }
+            if( i+1 === 5){
+                html += `</br>`;
+            }
+        }
+        html += `</div>`;
+
+        $(this).parent(".stars").replaceWith(html);
+
+        fbFactory.rateMovie(0, id, stars);
+    });
 };
 
 // get value from users search 
