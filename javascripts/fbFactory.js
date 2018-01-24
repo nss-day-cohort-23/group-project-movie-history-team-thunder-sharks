@@ -79,3 +79,23 @@ module.exports.searchMovies = term => {
     });
 };
 
+
+// number is an int between 1 and 10
+// module.exports.rateMove = (uid, id, number) => {
+//     return new Promise((resolve, reject) => {
+//         $.ajax({
+//             type: "PATCH",
+//             url: `${fbURL}/movies/`
+//         })
+//             .done(results => resolve(results))
+//             .fail(error => reject(error));
+//     });
+// };
+
+module.exports.getKeyFromIds = (uid, id) => {
+    return new Promise((resolve, reject) => {
+        getMovies.then(movies => {
+            resolve(_.filter(movies, movie => movie.id == id));
+        });
+    });
+};
