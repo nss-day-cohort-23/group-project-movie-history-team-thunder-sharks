@@ -33,9 +33,10 @@ module.exports.formatMovies = (data, limit) => {
                     if (i < movie.rating) {
                         movieStars.push({ star: true });
                     } else {
-                        movieStars.push({});
+                        movieStars.push({ star: false });
                     }
                 }
+                movieStars.splice(5, 0, {blank: true});
                 movieObj.rating = movieStars;
     
             } else {
