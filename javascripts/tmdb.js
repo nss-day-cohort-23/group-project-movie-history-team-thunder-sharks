@@ -17,12 +17,16 @@ module.exports.getMovies = (input) => {
 };
 
 // Get individual movie from tmdb
-module.exports.getMovie = (movieId) => {
+module.exports.getMovie = (movie) => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `http://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
-        }).done((data) => {
-            resolve(data);
+            url: `http://api.themoviedb.org/3/movie/${movie.id}?api_key=${apiKey}`
+        }).done((tmdbMovie) => {
+
+            // Combine movie and tmdbMovie into one movie
+            let combinedMovie = _.assign(tmdbMovie, movie);
+            
+            resolve(combinedMovie);
         }).fail((error) => {
             reject(error);
         });

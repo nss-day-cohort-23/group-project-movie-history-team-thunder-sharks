@@ -17,7 +17,8 @@ module.exports.formatMovies = (data, limit) => {
                 title: movie.title,
                 poster: movie.poster_path,
                 date: movie.release_date,
-                castList: ""
+                castList: "",
+                rating: movie.rating
             }
         );
     });

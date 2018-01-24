@@ -26,7 +26,7 @@ module.exports.getMovieData = (input) => {
             
             // Get tmdb infomration on each movie from firebase
             let fbPromises = fbMovies.map(movie => {
-                return tmdb.getMovie(movie.id);
+                return tmdb.getMovie(movie);
             });
 
             Promise.all(fbPromises).then(fbMoviesWithPoster  => {
@@ -37,6 +37,8 @@ module.exports.getMovieData = (input) => {
                 // Combine TMDB movies and Firebase movies.
                 formattedMovies = fbMoviesWithPoster.concat(formattedMovies);
 
+                console.log('formattedMovies', formattedMovies);
+                
                 let castPromises = formattedMovies.map(movie => {
                     return tmdb.getCastList(movie.id);
                 });
