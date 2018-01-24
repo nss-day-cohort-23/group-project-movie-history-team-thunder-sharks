@@ -7,7 +7,7 @@ let apiKey = require("./apiKey");
 module.exports.formatMovies = (data) => {
 
     let formattedMovies = [];
-    let movies = data.results;
+    let movies = data;
 
     movies.forEach((movie, index) => {
         formattedMovies.push(

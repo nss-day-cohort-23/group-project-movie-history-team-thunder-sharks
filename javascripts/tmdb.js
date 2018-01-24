@@ -16,6 +16,19 @@ module.exports.getMovies = (input) => {
     });
 };
 
+// Get individual movie from tmdb
+module.exports.getMovie = (movieId) => {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `http://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
+        }).done((data) => {
+            resolve(data);
+        }).fail((error) => {
+            reject(error);
+        });
+    });
+};
+
 const getCast = movieId => {
     return new Promise((resolve, reject) => {
         $.ajax({

@@ -20,26 +20,39 @@ module.exports.getMovieData = (input) => {
 
 
     tmdb.getMovies(input)
-    .then((data) => {
+    .then((tmdbMovies) => {
 
         fbFactory.searchMovies(input).then(fbMovies => {    
             
-            let formattedMovies = formatter.formatMovies(data);
-
-            // Combine TMDB movies and Firebase movies.
-            formattedMovies = fbMovies.concat(formattedMovies);
-            
-            console.log('formattedMovies', formattedMovies);
-
-            let castPromises = formattedMovies.map(movie => {
-                return tmdb.getCastList(movie.id);
+            // Get movie information from tmdb on each movie from firebase
+            let fbPromises = fbMovies.map(movie => {
+                return tmdb.getMovie(movie.id);
             });
-            Promise.all(castPromises).then(casts => {
-                formattedMovies.map((movie, index) => {
-                    movie.castList = casts[index];
+
+            Promise.all(fbPromises).then(fbMoviesWithPoster  => {
+
+                console.log('fbMoviesWithPoster', fbMoviesWithPoster);
+
+                // Format TMDB and Firebase movies as similar data
+                fbMoviesWithPoster = formatter.formatMovies(fbMoviesWithPoster);
+                let formattedMovies = formatter.formatMovies(tmdbMovies.results);
+                
+                // Combine TMDB movies and Firebase movies.
+                formattedMovies = fbMoviesWithPoster.concat(formattedMovies);
+
+                let castPromises = formattedMovies.map(movie => {
+                    return tmdb.getCastList(movie.id);
                 });
-                output.outputMovies(formattedMovies);
+                Promise.all(castPromises).then(casts => {
+                    formattedMovies.map((movie, index) => {
+                        movie.castList = casts[index];
+                    });
+                    output.outputMovies(formattedMovies);
+                });
             });
+
+            
+            
         });
     });
 };
