@@ -133,7 +133,19 @@ const activateTab = () => {
     $(".tabs").click(function(e) {
         $(".tabs").removeClass("active");
         $(e.currentTarget).addClass("active");
+        let id = $(e.target).attr("id");
+        console.log(id);
+        if (id == "all") {
+            $(".card.movie").show();
+        } else {
+            $(".card.movie").hide();
+            if (id == "watched") {
+                $(".card.movie.watched").show();
+            } else if (id == "wishlist") {
+                $(".card.movie.wishlist").show();
+            } else if (id == "favorite") {
+                $(".card.movie.favorite").show();
+            }
+        }
     });
 };
-
-

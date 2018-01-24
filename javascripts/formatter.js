@@ -18,6 +18,7 @@ module.exports.formatMovies = (data, limit) => {
                 poster: movie.poster_path,
                 date: movie.release_date.substring(0, 4),
                 castList: "",
+                class: "tmdb"
             };
             
             if (typeof movie.rating !== "undefined") {
@@ -38,9 +39,6 @@ module.exports.formatMovies = (data, limit) => {
                 }
                 movieStars.splice(5, 0, {blank: true});
                 movieObj.rating = movieStars;
-    
-            } else {
-                movie.class = "tmdb";
             }
             console.log('movie', movieObj);
         formattedMovies.push(movieObj);
