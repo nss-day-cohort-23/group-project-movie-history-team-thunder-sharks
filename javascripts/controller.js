@@ -19,7 +19,7 @@ module.exports.getMovieData = (input) => {
 
     tmdb.getMovies(input)
         .then((data) => {
-            let formattedMovies = formatter.formatMovies(data);
+            let formattedMovies = formatter.formatMovies(data, 9);
             let castPromises = formattedMovies.map(movie => {
                 return tmdb.getCastList(movie.id);
             });
