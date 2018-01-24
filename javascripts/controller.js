@@ -8,7 +8,6 @@ let output = require("./view");
 let firebase = require('firebase');
 let auth = require('./userFactory.js');
 const _ = require('lodash');
-let starCard = require("../templates/star.hbs");
 
 fbFactory.listenToUserId();
 
