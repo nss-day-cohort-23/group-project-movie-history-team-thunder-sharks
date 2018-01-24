@@ -7,6 +7,7 @@ let tmdb = require("./tmdb");
 let output = require("./view");
 let firebase = require('firebase');
 let auth = require('./userFactory.js');
+const _ = require('lodash');
 
 fbFactory.listenToUserId();
 
@@ -39,6 +40,9 @@ module.exports.getMovieData = (input) => {
 
                 console.log('formattedMovies', formattedMovies);
                 
+                // Remove movie duplicate movies, favoring movies from Firebase
+                formattedMovies = _.uniqBy(formattedMovies, 'id');
+
                 let castPromises = formattedMovies.map(movie => {
                     return tmdb.getCastList(movie.id);
                 });
