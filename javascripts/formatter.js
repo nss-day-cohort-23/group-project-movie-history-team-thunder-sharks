@@ -7,7 +7,8 @@ let apiKey = require("./apiKey");
 module.exports.formatMovies = (data, limit) => {
 
     let formattedMovies = [];
-    let movies = data.results.slice(0, limit);
+
+    let movies = data.slice(0, limit);
 
     movies.forEach((movie, index) => {
         formattedMovies.push(
@@ -16,7 +17,8 @@ module.exports.formatMovies = (data, limit) => {
                 title: movie.title,
                 poster: movie.poster_path,
                 date: movie.release_date,
-                castList: ""
+                castList: "",
+                rating: movie.rating
             }
         );
     });

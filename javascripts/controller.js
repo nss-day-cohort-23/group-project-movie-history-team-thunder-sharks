@@ -7,29 +7,55 @@ let tmdb = require("./tmdb");
 let output = require("./view");
 let firebase = require('firebase');
 let auth = require('./userFactory.js');
+const _ = require('lodash');
 
 fbFactory.listenToUserId();
 
 // get value from users search and pass to ajax call
 
 module.exports.getMovieData = (input) => {
-    fbFactory.searchMovies(input).then(movies => {
-        console.log("searched", movies);
-    });
+
+
+   
+
+
 
     tmdb.getMovies(input)
-        .then((data) => {
-            let formattedMovies = formatter.formatMovies(data, 9);
-            let castPromises = formattedMovies.map(movie => {
-                return tmdb.getCastList(movie.id);
+    .then((tmdbMovies) => {
+
+        fbFactory.searchMovies(input).then(fbMovies => {  
+            
+            // Get tmdb infomration on each movie from firebase
+            let fbPromises = fbMovies.map(movie => {
+                return tmdb.getMovie(movie);
             });
-            Promise.all(castPromises).then(casts => {
-                formattedMovies.map((movie, index) => {
-                    movie.castList = casts[index];
+
+            Promise.all(fbPromises).then(fbMoviesWithPoster  => {
+                // Format TMDB and Firebase movies as similar data
+                fbMoviesWithPoster = formatter.formatMovies(fbMoviesWithPoster, 6);
+                let formattedMovies = formatter.formatMovies(tmdbMovies.results, 6);
+                
+                // Combine TMDB movies and Firebase movies.
+                formattedMovies = fbMoviesWithPoster.concat(formattedMovies);
+
+                // Remove movie duplicate movies, favoring movies from Firebase
+                formattedMovies = _.uniqBy(formattedMovies, 'id');
+
+                let castPromises = formattedMovies.map(movie => {
+                    return tmdb.getCastList(movie.id);
                 });
-                output.outputMovies(formattedMovies);
+                Promise.all(castPromises).then(casts => {
+                    formattedMovies.map((movie, index) => {
+                        movie.castList = casts[index];
+                    });
+                    output.outputMovies(formattedMovies);
+                });
             });
+
+            
+            
         });
+    });
 };
 
 // event listeners
@@ -91,7 +117,7 @@ const addToWishlist = () => {
         movieId = parseInt(movieId);
         let currentUser = firebase.auth().currentUser;
         let userMovie = {
-            movieId: movieId,
+            id: movieId,
             uid: currentUser.uid,
             rating: 0,
             title: movieTitle
